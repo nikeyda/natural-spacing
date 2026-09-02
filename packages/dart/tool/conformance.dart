@@ -100,10 +100,7 @@ void main(List<String> arguments) {
   )) {
     final orderedSession = OrderedTextUpdateSession(
       policy: _enum(FieldPolicy.values, _string(scenario, 'policy')),
-      source: _enum(
-        OrderedTextSource.values,
-        _string(scenario, 'source'),
-      ),
+      source: _enum(OrderedTextSource.values, _string(scenario, 'source')),
     );
     final operations = _list(scenario, 'operations');
     for (var index = 0; index < operations.length; index++) {
@@ -320,18 +317,14 @@ OrderedTextUpdateEvent _orderedTextUpdateEvent(Map<String, Object?> value) =>
       stability: _stability(_string(value, 'stability')),
     );
 
-OrderedTextUpdateResult _orderedTextUpdateResult(
-  Map<String, Object?> value,
-) => OrderedTextUpdateResult(
-  accepted: value['accepted']! as bool,
-  reason: _enum(
-    OrderedTextUpdateReason.values,
-    _string(value, 'reason'),
-  ),
-  output: value['output'] == null
-      ? null
-      : _formattedTextUpdate(_map(value['output'])),
-);
+OrderedTextUpdateResult _orderedTextUpdateResult(Map<String, Object?> value) =>
+    OrderedTextUpdateResult(
+      accepted: value['accepted']! as bool,
+      reason: _enum(OrderedTextUpdateReason.values, _string(value, 'reason')),
+      output: value['output'] == null
+          ? null
+          : _formattedTextUpdate(_map(value['output'])),
+    );
 
 TextRange _range(Map<String, Object?> value) =>
     TextRange(_int(value, 'start'), _int(value, 'length'));
