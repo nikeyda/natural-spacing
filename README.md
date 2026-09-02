@@ -6,6 +6,22 @@
 
 Natural Spacing is a specification-first toolkit for adding predictable spaces at Han–Latin and Han–ASCII-digit boundaries without breaking IME composition, selections, deletion intent, or native undo behavior. It is intended for interactive input and non-interactive text such as ASR, dictation, imported content, and generated prose.
 
+## Before and after
+
+With the `naturalLanguage` policy enabled:
+
+```diff
+- 在GitHub发布2个项目
++ 在 GitHub 发布 2 个项目
+```
+
+| Before | After |
+| --- | --- |
+| `支持macOS和Windows11系统` | `支持 macOS 和 Windows11 系统` |
+| `今天发布v2版本` | `今天发布 v2 版本` |
+
+The formatter inserts spaces only at direct Han–Latin and Han–ASCII-digit boundaries. Existing spacing, punctuation, Latin–digit sequences such as `React18`, and fields using the `verbatim` policy remain unchanged. The live-editor adapters are designed to produce the same visible result while preserving IME composition, selections, deletion intent, and native undo behavior; see the experimental support levels below.
+
 ## Status
 
 Rules v1, private TypeScript/Swift/Kotlin/C#/Dart reference cores, and experimental UIKit/AppKit/SwiftUI/Web/Android Views/Jetpack Compose/WinUI/WPF/Flutter bridges are implemented. The project does **not** contain production platform adapters yet. Every existing platform bridge remains experimental until its real-input acceptance matrix passes.

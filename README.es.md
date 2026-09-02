@@ -6,6 +6,22 @@
 
 Natural Spacing es un conjunto de herramientas basado primero en una especificación para añadir espacios predecibles en los límites entre caracteres Han y letras latinas, y entre caracteres Han y dígitos ASCII, sin afectar la composición del IME, las selecciones, la intención de borrado ni el comportamiento nativo de deshacer. Está pensado tanto para entrada interactiva como para texto no interactivo, incluido ASR, dictado, contenido importado y prosa generada.
 
+## Antes y después
+
+Con la política `naturalLanguage` activada:
+
+```diff
+- 在GitHub发布2个项目
++ 在 GitHub 发布 2 个项目
+```
+
+| Antes | Después |
+| --- | --- |
+| `支持macOS和Windows11系统` | `支持 macOS 和 Windows11 系统` |
+| `今天发布v2版本` | `今天发布 v2 版本` |
+
+El formateador solo inserta espacios en límites directos entre caracteres Han y letras latinas, o entre caracteres Han y dígitos ASCII. Los espacios existentes, la puntuación, las secuencias de letras latinas y dígitos como `React18`, y los campos que usan la política `verbatim` permanecen sin cambios. Los adaptadores de edición en vivo están diseñados para producir el mismo resultado visible y, a la vez, preservar la composición del IME, las selecciones, la intención de borrado y el comportamiento nativo de deshacer; consulta más abajo los niveles de compatibilidad experimental.
+
 ## Estado
 
 Se han implementado las reglas v1, los núcleos de referencia privados para TypeScript/Swift/Kotlin/C#/Dart y los puentes experimentales para UIKit/AppKit/SwiftUI/Web/Android Views/Jetpack Compose/WinUI/WPF/Flutter. El proyecto aún **no** contiene adaptadores de plataforma listos para producción. Todos los puentes de plataforma existentes seguirán siendo experimentales hasta que superen su matriz de aceptación con entradas reales.
