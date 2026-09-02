@@ -1,6 +1,6 @@
 # Package consumer evidence — 2026-09-02
 
-This snapshot verifies source-package consumption before any public repository, Git tag, or registry release exists. It is not publication approval.
+This snapshot verifies source-package consumption for the public source alpha. It does not verify a Git tag or authorize a registry release.
 
 ## npm tarballs
 
@@ -26,7 +26,7 @@ bash scripts/test-ios-simulator.sh
 
 The public Swift manifest is at the repository root because SwiftPM resolves a Git dependency from that root. An independent executable package depends on the root package and imports `NaturalSpacingCore`, `NaturalSpacingAppKit`, and `NaturalSpacingSwiftUI`. The consumer exercises recommendation, safe resolution including secure override, normalization, ordered interim/stale/final/closed updates, and adapter construction. Root package tests pass 28/28 on the macOS host; the iPhone Air/iOS 26.4 Simulator suite passes 25/25.
 
-Result: passed for a local path dependency. A future remote URL and tag remain unverified.
+Result: passed for a local path dependency. The public remote URL now exists, but consumption through a remote URL and tag remains unverified.
 
 ## Kotlin/JVM and Android adapters
 
@@ -78,8 +78,8 @@ Result: analyzer clean and 4/4 consumer application tests passed locally with Fl
 
 ## Remaining packaging gates
 
-- Final repository and package names, registry namespaces, owners, and versions are undecided.
+- The source repository is fixed as `nikeyda/natural-spacing`; registry package names, namespaces, owners, and release versions remain undecided.
 - npm packages remain `private: true` at `0.0.0`; Dart remains `publish_to: none` at `0.0.0`.
 - Kotlin core plus Android Views/Compose and .NET source dependencies are verified, but Maven and NuGet artifacts are not; their coordinates remain undecided.
 - Flutter source consumption is verified, but pub registry consumption and target-runtime acceptance are not.
-- No GitHub Actions run, signed tag, remote Git dependency, registry install, or provenance attestation exists yet.
+- Public GitHub Actions conformance has passed. No signed tag, remote Git dependency test, registry install, or provenance attestation exists yet.

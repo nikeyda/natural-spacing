@@ -1,6 +1,6 @@
 # Publication readiness audit — 2026-09-02
 
-This is a source-alpha readiness snapshot, not approval to create a public repository or publish registry packages.
+This is the source-alpha publication record for [`nikeyda/natural-spacing`](https://github.com/nikeyda/natural-spacing). It does not authorize registry package publication.
 
 ## Cleared checks
 
@@ -22,7 +22,7 @@ This is a source-alpha readiness snapshot, not approval to create a public repos
 - TypeScript, Swift, Kotlin, C#, and Dart expose the same safe policy-resolution rule: secure/password context forces `verbatim` even when explicit `naturalLanguage` is also present; otherwise only `autoApply=true` recommendations are adopted automatically, and advisory results use a caller fallback that defaults to `verbatim`. Optional UI-adapter policies also default to `verbatim`.
 - The same five cores consume four provider-neutral ordered ASR/dictation scenarios with 23 operations. Their session state retains only the active utterance ID and latest accepted revision, not transcript text.
 - Kotlin includes a Gradle 8.13 wrapper whose distribution URL is protected by the official SHA-256 checksum.
-- The repository has been initialized locally on `main` with no commit and no remote. The repository validator reports 229 source-publication candidates; `.DS_Store`, Kotlin compiler state, dependency trees, build products, and test output are ignored. `npm run validate:repository` reproduces the candidate-path, common-secret, absolute user-home path, and relative Markdown-link checks locally and in CI.
+- The public repository uses `main` and Apache-2.0. The repository validator reports 229 source-publication candidates; `.DS_Store`, Kotlin compiler state, dependency trees, build products, and test output are ignored. `npm run validate:repository` reproduces the candidate-path, common-secret, absolute user-home path, and relative Markdown-link checks locally and in CI.
 - A source-alpha getting-started guide now routes developers to live-editor, ASR/non-interactive, or display-only integration, documents safe policy resolution in all five cores, and links the executable source consumers.
 
 ## Verification snapshot
@@ -42,21 +42,22 @@ This is a source-alpha readiness snapshot, not approval to create a public repos
 | Dart | Analyzer clean; 97 shared + 4 bridge + 23 ordered-session + 766 grapheme checks; an independent path-dependency consumer imports the core and exercises interim/stale/final/closed ordered handling |
 | Flutter | Flutter 3.47.2 analyzer clean; 11/11 formatter/`TextField` host tests, including simulated platform insertion of an ASCII digit and controller synchronization after an external value replacement, and 4/4 independent application tests pass, including ordered ASR handling. A dedicated natural-language/secure acceptance UI passes 1/1 widget test and compiles through disposable bundle, Web, macOS, iOS Simulator, and Android builds; CI installer pins the official Linux 3.47.2 archive SHA-256 |
 
-The GitHub Actions workflow is syntactically valid and pins actions to full commit SHAs. It has not run on GitHub because no public repository exists. The Web result above includes four local engines but does not establish release Safari/Firefox, mobile browsers, React composition/paste/concurrency/hydration, non-Chromium system clipboard, composition-commit undo, command fallback, autofill/accessibility, or real IMEs. Android, UIKit, WinUI/WPF, Flutter, and real input sources still require the acceptance matrices recorded elsewhere.
+The GitHub Actions workflow pins actions to full commit SHAs. [Public run 33584648951](https://github.com/nikeyda/natural-spacing/actions/runs/33584648951) passed all seven jobs at source head `a11b3e2a71ec089682a5613739ce3869dcd42c39`: TypeScript/Web/ASR, Swift/UIKit/AppKit/SwiftUI, Kotlin/JVM/Android Views/Compose, C#/.NET, Dart, Flutter, and WinUI 3/WPF. The first two public runs exposed three hosted-runner portability defects—missing Android SDK setup, an unformatted Dart conformance source, and insufficient D8 heap for the Android acceptance APK—and the fixes are included in the passing head. This result does not establish release Safari/Firefox, mobile browsers, React composition/paste/concurrency/hydration, non-Chromium system clipboard, composition-commit undo, command fallback, autofill/accessibility, or real IMEs. Android, UIKit, WinUI/WPF, Flutter, and real input sources still require the acceptance matrices recorded elsewhere.
 
 Detailed local package-consumer evidence and its limits are recorded in [the package consumer snapshot](package-consumers-2026-09-02.md). Android control evidence and its limits are recorded in [the Android Views host snapshot](android-host-2026-09-02.md). Windows coordinator and cross-compile evidence is recorded in [the Windows coordinator snapshot](windows-coordinator-2026-09-02.md).
 
-## Decisions required before GitHub creation
+## Publication decision record
 
-The recommended first milestone is now fixed as a public `natural-spacing` source alpha under Apache-2.0. All npm, Maven, NuGet, pub, and other registry publication remains disabled and their final coordinates are deferred.
+The first milestone is published as the public `nikeyda/natural-spacing` source alpha under Apache-2.0. All npm, Maven, NuGet, pub, and other registry publication remains disabled and their final coordinates are deferred.
 
-Two external decisions remain:
+The confirmed publication identity is:
 
-1. Exact GitHub user or organization owner and initial maintainer identity.
-2. Confirmation that the copyright owner authorizes public distribution of this candidate under Apache-2.0, including any employer or client approval that applies.
+1. GitHub owner and initial maintainer: `nikeyda`.
+2. Public Git author: `nikey <45325116+nikeyda@users.noreply.github.com>`.
+3. Public distribution license: Apache-2.0.
 
-After repository creation, enable GitHub private vulnerability reporting before inviting external use. This is an operational setup step, not permission to publish packages.
+GitHub private vulnerability reporting is enabled. No GitHub release, signed tag, package registry, or provenance publication has been created.
 
 ## Recommendation
 
-After the two external decisions above, create the public source-alpha repository and run the pinned workflow first. Keep every package registry disabled and every native adapter labeled experimental until its platform acceptance gate passes. Do not describe cross-compilation or pure-core conformance as real keyboard, IME, dictation, undo, accessibility, or device support.
+Keep every package registry disabled and every native adapter labeled experimental until its platform acceptance gate passes. The next milestone should collect real keyboard, IME, dictation, undo, accessibility, and device evidence before any support claim or tagged release. Do not describe cross-compilation or pure-core conformance as real-input support.

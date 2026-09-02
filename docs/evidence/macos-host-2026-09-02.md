@@ -1,6 +1,6 @@
 # macOS host adapter audit — 2026-09-02
 
-This record is automated native-control evidence, not real-input-source, dictation, accessibility, or application-release acceptance. The local Git repository has no commit yet, so no commit SHA exists for this snapshot.
+This record captured automated native-control evidence before the first Git commit; see the [publication readiness audit](publication-readiness-2026-09-02.md) for the current public repository and CI state. It is not real-input-source, dictation, accessibility, or application-release acceptance.
 
 ## Environment
 
