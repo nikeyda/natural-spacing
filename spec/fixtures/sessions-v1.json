@@ -1,0 +1,452 @@
+{
+  "schemaVersion": "1.0.0",
+  "rulesVersion": "1.0.0-draft.1",
+  "offsetEncoding": "utf16",
+  "scenarios": [
+    {
+      "id": "insert-latin-after-han",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中A",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 A",
+              "selection": { "anchor": 3, "focus": 3 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "insert-han-before-latin",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "A",
+              "afterUserText": "中A",
+              "changedRange": { "start": 0, "length": 0 },
+              "selection": { "anchor": 1, "focus": 1 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 A",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "insert-ascii-digit-after-han",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中2",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanAsciiDigit" }
+              ],
+              "resultText": "中 2",
+              "selection": { "anchor": 3, "focus": 3 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "insert-ascii-digit-before-han",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "2中",
+              "changedRange": { "start": 0, "length": 0 },
+              "selection": { "anchor": 1, "focus": 1 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanAsciiDigit" }
+              ],
+              "resultText": "2 中",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "composition-defers-until-settled",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中e",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": { "start": 1, "length": 1 },
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "composing",
+              "insertions": [],
+              "resultText": "中e",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        },
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中e",
+              "afterUserText": "中é",
+              "changedRange": { "start": 1, "length": 1 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "replace",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 é",
+              "selection": { "anchor": 3, "focus": 3 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "deleted-space-remains-suppressed",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中A",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 A",
+              "selection": { "anchor": 3, "focus": 3 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        },
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中 A",
+              "afterUserText": "中A",
+              "changedRange": { "start": 1, "length": 1 },
+              "selection": { "anchor": 1, "focus": 1 },
+              "composingRange": null,
+              "editKind": "delete",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "suppressed",
+              "insertions": [],
+              "resultText": "中A",
+              "selection": { "anchor": 1, "focus": 1 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 1 }
+        },
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中A",
+              "afterUserText": "中A!",
+              "changedRange": { "start": 2, "length": 0 },
+              "selection": { "anchor": 3, "focus": 3 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "suppressed",
+              "insertions": [],
+              "resultText": "中A!",
+              "selection": { "anchor": 3, "focus": 3 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 1 }
+        },
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中A!",
+              "afterUserText": "文A!",
+              "changedRange": { "start": 0, "length": 1 },
+              "selection": { "anchor": 1, "focus": 1 },
+              "composingRange": null,
+              "editKind": "replace",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "文 A!",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "selection-replacement-creates-two-boundaries",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中XYZ文",
+              "afterUserText": "中A文",
+              "changedRange": { "start": 1, "length": 3 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "replace",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" },
+                { "offset": 2, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 A 文",
+              "selection": { "anchor": 4, "focus": 4 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "paste-scans-fragment-and-outer-boundaries",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "前",
+              "afterUserText": "前React18版本",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 10, "focus": 10 },
+              "composingRange": null,
+              "editKind": "paste",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" },
+                { "offset": 8, "text": " ", "reason": "hanAsciiDigit" }
+              ],
+              "resultText": "前 React18 版本",
+              "selection": { "anchor": 12, "focus": 12 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "length-limit-skips-all-automatic-spaces",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中A",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": 2
+            },
+            "expectedPlan": {
+              "decision": "lengthLimited",
+              "insertions": [],
+              "resultText": "中A",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "verbatim-never-adds-space",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中",
+              "afterUserText": "中A",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 2, "focus": 2 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "verbatim",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "verbatim",
+              "insertions": [],
+              "resultText": "中A",
+              "selection": { "anchor": 2, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "emoji-surrogate-offsets-remain-valid",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中🙂",
+              "afterUserText": "中🙂A",
+              "changedRange": { "start": 3, "length": 0 },
+              "selection": { "anchor": 4, "focus": 4 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "noChange",
+              "insertions": [],
+              "resultText": "中🙂A",
+              "selection": { "anchor": 4, "focus": 4 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "edit-does-not-normalize-distant-boundaries",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中A ok",
+              "afterUserText": "中A ok!",
+              "changedRange": { "start": 5, "length": 0 },
+              "selection": { "anchor": 6, "focus": 6 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "noChange",
+              "insertions": [],
+              "resultText": "中A ok!",
+              "selection": { "anchor": 6, "focus": 6 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    },
+    {
+      "id": "backward-selection-direction-is-preserved",
+      "steps": [
+        {
+          "exchange": {
+            "snapshot": {
+              "beforeText": "中文",
+              "afterUserText": "中A文",
+              "changedRange": { "start": 1, "length": 0 },
+              "selection": { "anchor": 3, "focus": 1 },
+              "composingRange": null,
+              "editKind": "insert",
+              "policy": "naturalLanguage",
+              "maxLengthUtf16": null
+            },
+            "expectedPlan": {
+              "decision": "applied",
+              "insertions": [
+                { "offset": 1, "text": " ", "reason": "hanLatin" },
+                { "offset": 2, "text": " ", "reason": "hanLatin" }
+              ],
+              "resultText": "中 A 文",
+              "selection": { "anchor": 5, "focus": 2 }
+            }
+          },
+          "expectedSession": { "suppressedBoundaryCount": 0 }
+        }
+      ]
+    }
+  ]
+}

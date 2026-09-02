@@ -1,0 +1,38 @@
+{
+  "name": "natural-spacing-spec-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/typescript/*"
+  ],
+  "description": "Specification and conformance fixtures for IME-safe Han–Latin input spacing.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "esbuild": "0.28.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "typescript": "7.0.2"
+  },
+  "scripts": {
+    "build:core": "tsc -p packages/typescript/core/tsconfig.json",
+    "build:web": "tsc -p packages/typescript/web/tsconfig.json",
+    "build:test:browser-fixtures": "esbuild packages/typescript/web/test/native-fixture-entry.mjs packages/typescript/web/test/react-fixture-entry.mjs --bundle --format=iife --outdir=packages/typescript/web/test/.generated && esbuild examples/web/app.mjs --bundle --format=iife --outfile=packages/typescript/web/test/.generated/demo-fixture.js",
+    "unicode:generate": "node scripts/generate-unicode-tables.mjs",
+    "unicode:check": "node scripts/generate-unicode-tables.mjs --check",
+    "grapheme:generate": "node scripts/generate-grapheme-tables.mjs",
+    "grapheme:check": "node scripts/generate-grapheme-tables.mjs --check",
+    "validate:repository": "node scripts/validate-repository.mjs",
+    "validate:unicode": "node scripts/generate-unicode-tables.mjs --check-generated && node scripts/generate-grapheme-tables.mjs --check-generated",
+    "validate": "npm run validate:repository && node scripts/validate-spec.mjs && npm run validate:unicode",
+    "test:core": "npm run build:core && node --test packages/typescript/core/test/*.test.mjs",
+    "test:web": "npm run build:core && npm run build:web && node --test packages/typescript/web/test/*.test.mjs",
+    "test:browser": "npm run build:core && npm run build:web && npm run build:test:browser-fixtures && playwright test --config=playwright.config.mjs",
+    "test:consumer:npm": "npm run build:core && npm run build:web && node scripts/test-npm-consumer.mjs",
+    "test:asr": "npm run build:core && node --test examples/asr/*.test.mjs",
+    "test": "npm run validate && npm run test:core && npm run test:web && npm run test:asr"
+  }
+}

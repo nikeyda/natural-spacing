@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Natural Spacing Acceptance</string>
+    <string name="reset_synthetic_text">Reset synthetic text</string>
+    <string name="password_status">configured=NATURAL_LANGUAGE  effective=VERBATIM  decision=%1$s\nlength=%2$d; value intentionally hidden</string>
+</resources>

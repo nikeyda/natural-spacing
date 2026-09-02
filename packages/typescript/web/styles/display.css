@@ -1,0 +1,6 @@
+/* Progressive display-only enhancement. Never apply this class to an editor. */
+@supports (text-autospace: normal) {
+  .natural-spacing-display:not(input):not(textarea):not([contenteditable]) {
+    text-autospace: normal;
+  }
+}

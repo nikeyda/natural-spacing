@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyVersion": "1.0.0-draft.2",
+  "scenarios": [
+    {
+      "id": "ordered-asr-revisions-and-final-closure",
+      "policy": "naturalLanguage",
+      "source": "asr",
+      "operations": [
+        {
+          "kind": "start",
+          "utteranceId": "utterance-1",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-1", "revision": 2, "text": "支持mac", "stability": "interim" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "支持 mac", "committedText": null, "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "interim" }
+          }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-1", "revision": 1, "text": "旧文本A", "stability": "interim" },
+          "expected": { "accepted": false, "reason": "staleRevision", "output": null }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-1", "revision": 2, "text": "重复文本B", "stability": "interim" },
+          "expected": { "accepted": false, "reason": "staleRevision", "output": null }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-1", "revision": 3, "text": "支持macOS和Windows11系统", "stability": "final" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "支持 macOS 和 Windows11 系统", "committedText": "支持 macOS 和 Windows11 系统", "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "final" }
+          }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-1", "revision": 4, "text": "迟到A", "stability": "final" },
+          "expected": { "accepted": false, "reason": "inactiveUtterance", "output": null }
+        }
+      ]
+    },
+    {
+      "id": "cancellation-isolates-the-next-utterance",
+      "policy": "naturalLanguage",
+      "source": "asr",
+      "operations": [
+        {
+          "kind": "start",
+          "utteranceId": "utterance-old",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-old", "revision": 0, "text": "旧会话A", "stability": "interim" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "旧会话 A", "committedText": null, "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "interim" }
+          }
+        },
+        {
+          "kind": "cancel",
+          "utteranceId": "utterance-old",
+          "expected": { "cancelled": true }
+        },
+        {
+          "kind": "start",
+          "utteranceId": "utterance-next",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-old", "revision": 1, "text": "不应提交B", "stability": "final" },
+          "expected": { "accepted": false, "reason": "inactiveUtterance", "output": null }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-next", "revision": 0, "text": "开始C计划", "stability": "final" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "开始 C 计划", "committedText": "开始 C 计划", "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "final" }
+          }
+        },
+        {
+          "kind": "cancel",
+          "utteranceId": "utterance-next",
+          "expected": { "cancelled": false }
+        }
+      ]
+    },
+    {
+      "id": "verbatim-dictation-remains-unmodified",
+      "policy": "verbatim",
+      "source": "dictation",
+      "operations": [
+        {
+          "kind": "start",
+          "utteranceId": "dictation-1",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "dictation-1", "revision": 0, "text": "git中A", "stability": "interim" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "git中A", "committedText": null, "changed": false, "policy": "verbatim", "source": "dictation", "stability": "interim" }
+          }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "dictation-1", "revision": 1, "text": "git中A", "stability": "final" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "git中A", "committedText": "git中A", "changed": false, "policy": "verbatim", "source": "dictation", "stability": "final" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "invalid-and-restarted-lifecycle",
+      "policy": "naturalLanguage",
+      "source": "asr",
+      "operations": [
+        {
+          "kind": "start",
+          "utteranceId": "",
+          "expected": { "started": false }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-restart", "revision": -1, "text": "无效A", "stability": "interim" },
+          "expected": { "accepted": false, "reason": "invalidRevision", "output": null }
+        },
+        {
+          "kind": "start",
+          "utteranceId": "utterance-restart",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-restart", "revision": 0, "text": "中2", "stability": "interim" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "中 2", "committedText": null, "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "interim" }
+          }
+        },
+        {
+          "kind": "start",
+          "utteranceId": "utterance-restart",
+          "expected": { "started": true }
+        },
+        {
+          "kind": "accept",
+          "event": { "utteranceId": "utterance-restart", "revision": 0, "text": "中2", "stability": "final" },
+          "expected": {
+            "accepted": true,
+            "reason": "accepted",
+            "output": { "displayText": "中 2", "committedText": "中 2", "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "final" }
+          }
+        },
+        {
+          "kind": "cancel",
+          "utteranceId": "other-utterance",
+          "expected": { "cancelled": false }
+        }
+      ]
+    }
+  ]
+}

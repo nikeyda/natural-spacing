@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../packages/dotnet/NaturalSpacing.Core/NaturalSpacing.Core.csproj" />
+    <ProjectReference Include="../../../packages/dotnet/NaturalSpacing.Wpf/NaturalSpacing.Wpf.csproj" />
+  </ItemGroup>
+</Project>

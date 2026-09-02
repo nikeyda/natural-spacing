@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://natural-spacing.dev/spec/edit-contract-v1.schema.json",
+  "title": "Natural Spacing edit exchange v1",
+  "description": "A language-neutral input snapshot and its expected automatic edit plan. All offsets and lengths count UTF-16 code units.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["snapshot", "expectedPlan"],
+  "properties": {
+    "snapshot": { "$ref": "#/$defs/editSnapshot" },
+    "expectedPlan": { "$ref": "#/$defs/editPlan" }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "length"],
+      "properties": {
+        "start": { "type": "integer", "minimum": 0 },
+        "length": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anchor", "focus"],
+      "properties": {
+        "anchor": { "type": "integer", "minimum": 0 },
+        "focus": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "editSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "beforeText",
+        "afterUserText",
+        "changedRange",
+        "selection",
+        "composingRange",
+        "editKind",
+        "policy",
+        "maxLengthUtf16"
+      ],
+      "properties": {
+        "beforeText": { "type": "string" },
+        "afterUserText": { "type": "string" },
+        "changedRange": { "$ref": "#/$defs/range" },
+        "selection": { "$ref": "#/$defs/selection" },
+        "composingRange": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/range" }
+          ]
+        },
+        "editKind": {
+          "enum": ["insert", "delete", "replace", "paste"]
+        },
+        "policy": {
+          "enum": ["naturalLanguage", "verbatim"]
+        },
+        "maxLengthUtf16": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        }
+      }
+    },
+    "insertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offset", "text", "reason"],
+      "properties": {
+        "offset": { "type": "integer", "minimum": 0 },
+        "text": { "const": " " },
+        "reason": { "enum": ["hanLatin", "hanAsciiDigit"] }
+      }
+    },
+    "editPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "insertions", "resultText", "selection"],
+      "properties": {
+        "decision": {
+          "enum": [
+            "applied",
+            "noChange",
+            "verbatim",
+            "composing",
+            "suppressed",
+            "lengthLimited"
+          ]
+        },
+        "insertions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/insertion" }
+        },
+        "resultText": { "type": "string" },
+        "selection": { "$ref": "#/$defs/selection" }
+      }
+    }
+  }
+}

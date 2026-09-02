@@ -1,0 +1,116 @@
+name: Input method or editor bug
+description: Report keyboard, IME, dictation, composition, selection, or host-control behavior.
+title: "[Input] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use only synthetic text. Do not attach private user input, audio, credentials, proprietary application code, or unsanitized keyboard logs.
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Platform surface
+      options:
+        - UIKit
+        - SwiftUI on iOS
+        - AppKit
+        - SwiftUI on macOS
+        - Web or React
+        - Android Views
+        - Jetpack Compose
+        - WinUI 3
+        - WPF
+        - Flutter
+        - Core or ASR pipeline
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, SDK/runtime, device or VM, browser when relevant, and package revision or version.
+      placeholder: "Android 15 / API 35, Pixel 8; revision abc123"
+    validations:
+      required: true
+
+  - type: input
+    id: host
+    attributes:
+      label: Host control and integration
+      description: Name the control, adapter, framework mode, and whether its value is controlled externally.
+      placeholder: "EditText + NaturalSpacingEditTextAdapter; app owns programmatic resets"
+    validations:
+      required: true
+
+  - type: input
+    id: input_source
+    attributes:
+      label: Input source
+      description: Give the exact keyboard, IME, dictation, hardware keyboard, or accessibility-input name and version. Write "not applicable" for non-interactive pipelines.
+      placeholder: "Gboard 16.x, Simplified Chinese Pinyin"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: policy
+    attributes:
+      label: Effective policy
+      options:
+        - naturalLanguage
+        - verbatim
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: evidence_level
+    attributes:
+      label: Evidence level
+      description: See docs/platform-acceptance.md. Choose the level actually exercised, not the level expected to work.
+      options:
+        - Core
+        - Compile
+        - Automated host
+        - Real input
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: List exact setup and input operations, including composition, selection, deletion, paste, focus, or lifecycle transitions.
+      placeholder: |
+        1. Attach the adapter with naturalLanguage policy.
+        2. Type synthetic text "中A" using the named input source.
+        3. Move the caret and delete the inserted space.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: Expected and actual behavior
+      placeholder: |
+        Expected: "中 A" after composition commits.
+        Actual: active marked text was changed before commit.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sanitized_evidence
+    attributes:
+      label: Sanitized evidence
+      description: Add a minimal test, screen recording, or sanitized log if available. Identify whether undo, selection, composition, and committed text were inspected.
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety checklist
+      options:
+        - label: I used synthetic text and removed private or proprietary data.
+          required: true
+        - label: I did not infer real-input support from a compile, simulator, or automated-host result.
+          required: true

@@ -1,0 +1,19 @@
+name: natural_spacing_flutter_consumer
+description: Independent path-dependency smoke consumer for Natural Spacing Flutter.
+publish_to: none
+
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  natural_spacing:
+    path: ../../../packages/dart
+  natural_spacing_flutter:
+    path: ../../../packages/flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

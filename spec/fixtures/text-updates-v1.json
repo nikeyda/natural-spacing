@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyVersion": "1.0.0-draft.2",
+  "cases": [
+    {
+      "id": "asr-interim-is-display-only",
+      "update": { "text": "今天发布v2版本", "policy": "naturalLanguage", "source": "asr", "stability": "interim" },
+      "expected": { "displayText": "今天发布 v2 版本", "committedText": null, "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "interim" }
+    },
+    {
+      "id": "asr-final-can-be-committed",
+      "update": { "text": "今天发布v2版本", "policy": "naturalLanguage", "source": "asr", "stability": "final" },
+      "expected": { "displayText": "今天发布 v2 版本", "committedText": "今天发布 v2 版本", "changed": true, "policy": "naturalLanguage", "source": "asr", "stability": "final" }
+    },
+    {
+      "id": "asr-verbatim-interim-is-display-only",
+      "update": { "text": "git中A", "policy": "verbatim", "source": "asr", "stability": "interim" },
+      "expected": { "displayText": "git中A", "committedText": null, "changed": false, "policy": "verbatim", "source": "asr", "stability": "interim" }
+    },
+    {
+      "id": "asr-verbatim-final-can-be-committed",
+      "update": { "text": "git中A", "policy": "verbatim", "source": "asr", "stability": "final" },
+      "expected": { "displayText": "git中A", "committedText": "git中A", "changed": false, "policy": "verbatim", "source": "asr", "stability": "final" }
+    },
+    {
+      "id": "dictation-interim-is-display-only",
+      "update": { "text": "支持macOS系统", "policy": "naturalLanguage", "source": "dictation", "stability": "interim" },
+      "expected": { "displayText": "支持 macOS 系统", "committedText": null, "changed": true, "policy": "naturalLanguage", "source": "dictation", "stability": "interim" }
+    },
+    {
+      "id": "dictation-final-uses-the-same-rules",
+      "update": { "text": "支持macOS和Windows11系统", "policy": "naturalLanguage", "source": "dictation", "stability": "final" },
+      "expected": { "displayText": "支持 macOS 和 Windows11 系统", "committedText": "支持 macOS 和 Windows11 系统", "changed": true, "policy": "naturalLanguage", "source": "dictation", "stability": "final" }
+    },
+    {
+      "id": "imported-final-text-is-normalized",
+      "update": { "text": "支持iOS和Android14系统", "policy": "naturalLanguage", "source": "imported", "stability": "final" },
+      "expected": { "displayText": "支持 iOS 和 Android14 系统", "committedText": "支持 iOS 和 Android14 系统", "changed": true, "policy": "naturalLanguage", "source": "imported", "stability": "final" }
+    },
+    {
+      "id": "imported-verbatim-text-is-preserved",
+      "update": { "text": "path中A/file", "policy": "verbatim", "source": "imported", "stability": "final" },
+      "expected": { "displayText": "path中A/file", "committedText": "path中A/file", "changed": false, "policy": "verbatim", "source": "imported", "stability": "final" }
+    },
+    {
+      "id": "generated-natural-language-is-normalized",
+      "update": { "text": "生成v3版本", "policy": "naturalLanguage", "source": "generated", "stability": "final" },
+      "expected": { "displayText": "生成 v3 版本", "committedText": "生成 v3 版本", "changed": true, "policy": "naturalLanguage", "source": "generated", "stability": "final" }
+    },
+    {
+      "id": "generated-verbatim-content-is-preserved",
+      "update": { "text": "const中A=1", "policy": "verbatim", "source": "generated", "stability": "final" },
+      "expected": { "displayText": "const中A=1", "committedText": "const中A=1", "changed": false, "policy": "verbatim", "source": "generated", "stability": "final" }
+    },
+    {
+      "id": "empty-interim-hypothesis",
+      "update": { "text": "", "policy": "naturalLanguage", "source": "asr", "stability": "interim" },
+      "expected": { "displayText": "", "committedText": null, "changed": false, "policy": "naturalLanguage", "source": "asr", "stability": "interim" }
+    },
+    {
+      "id": "empty-final-hypothesis",
+      "update": { "text": "", "policy": "naturalLanguage", "source": "asr", "stability": "final" },
+      "expected": { "displayText": "", "committedText": "", "changed": false, "policy": "naturalLanguage", "source": "asr", "stability": "final" }
+    }
+  ]
+}

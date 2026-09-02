@@ -1,0 +1,5 @@
+*.bat text eol=crlf whitespace=cr-at-eol
+
+# Preserve the vendored Unicode conformance file byte-for-byte. Its upstream
+# explanatory comments contain intentional trailing spaces.
+spec/unicode/17.0.0/GraphemeBreakTest.txt -text -whitespace

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Natural Spacing Web Example</title>
+    <link rel="stylesheet" href="../../packages/typescript/web/styles/display.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@natural-spacing/core": "../../packages/typescript/core/dist/index.js",
+          "@natural-spacing/web": "../../packages/typescript/web/dist/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main data-natural-spacing-demo>
+      <h1>Natural Spacing Web Example</h1>
+      <label>
+        消息输入
+        <input data-message value="今天发布v2版本" />
+      </label>
+      <pre data-message-status aria-live="polite"></pre>
+      <label>
+        密码输入（始终 verbatim）
+        <input data-password type="password" value="口令A2" />
+      </label>
+      <pre data-password-status aria-live="polite"></pre>
+      <section>
+        <h2>有序 ASR</h2>
+        <label>
+          完整当前假设
+          <input data-asr-hypothesis value="今天发布v2版本" />
+        </label>
+        <button data-asr-interim type="button">显示 interim</button>
+        <button data-asr-final type="button">提交 final</button>
+        <p>显示：<output data-asr-display></output></p>
+        <p>持久化：<output data-asr-committed></output></p>
+      </section>
+      <details>
+        <summary>策略决策</summary>
+        <output data-policy-status></output>
+      </details>
+      <p class="natural-spacing-display">展示层示例：中文和Latin文字由浏览器尝试排版。</p>
+    </main>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyVersion": "1.0.0-draft.2",
+  "cases": [
+    {
+      "id": "explicit-natural-language-wins",
+      "context": { "explicitPolicy": "naturalLanguage", "contentKind": "code", "text": "let中A=1" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "explicit", "reason": "explicitPolicy", "autoApply": true }
+    },
+    {
+      "id": "explicit-verbatim-wins",
+      "context": { "explicitPolicy": "verbatim", "contentKind": "prose", "text": "发布v2版本" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "explicit", "reason": "explicitPolicy", "autoApply": true }
+    },
+    {
+      "id": "secure-input-does-not-need-text",
+      "context": { "isSecure": true, "contentKind": "unknown" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "safety", "reason": "secureContent", "autoApply": true }
+    },
+    {
+      "id": "secure-input-overrides-explicit-natural-language",
+      "context": { "explicitPolicy": "naturalLanguage", "isSecure": true, "contentKind": "message" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "safety", "reason": "secureContent", "autoApply": true }
+    },
+    {
+      "id": "password-overrides-explicit-natural-language",
+      "context": { "explicitPolicy": "naturalLanguage", "contentKind": "password" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "safety", "reason": "secureContent", "autoApply": true }
+    },
+    {
+      "id": "prose-is-natural-language",
+      "context": { "contentKind": "prose" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "title-is-natural-language",
+      "context": { "contentKind": "title" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "message-is-natural-language",
+      "context": { "contentKind": "message" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "note-is-natural-language",
+      "context": { "contentKind": "note" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "document-is-natural-language",
+      "context": { "contentKind": "document" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "transcript-is-natural-language",
+      "context": { "contentKind": "transcript" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "asr-transcript-is-natural-language",
+      "context": { "contentKind": "asrTranscript" },
+      "expected": { "policy": "naturalLanguage", "confidence": "high", "source": "contentKind", "reason": "naturalLanguageContent", "autoApply": true }
+    },
+    {
+      "id": "code-is-verbatim",
+      "context": { "contentKind": "code" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "identifier-is-verbatim",
+      "context": { "contentKind": "identifier" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "url-is-verbatim",
+      "context": { "contentKind": "url" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "email-is-verbatim",
+      "context": { "contentKind": "email" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "password-is-verbatim",
+      "context": { "contentKind": "password", "text": "不要Inspect123" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "safety", "reason": "secureContent", "autoApply": true }
+    },
+    {
+      "id": "token-is-verbatim",
+      "context": { "contentKind": "token" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "file-path-is-verbatim",
+      "context": { "contentKind": "filePath" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "command-is-verbatim",
+      "context": { "contentKind": "command" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "number-is-verbatim",
+      "context": { "contentKind": "number" },
+      "expected": { "policy": "verbatim", "confidence": "high", "source": "contentKind", "reason": "structuredContent", "autoApply": true }
+    },
+    {
+      "id": "search-query-is-a-recommendation",
+      "context": { "contentKind": "searchQuery", "text": "查找iOS版本" },
+      "expected": { "policy": "naturalLanguage", "confidence": "medium", "source": "contentKind", "reason": "ambiguousSearch", "autoApply": false }
+    },
+    {
+      "id": "structured-search-query-stays-verbatim",
+      "context": { "contentKind": "searchQuery", "text": "https://example.com/path" },
+      "expected": { "policy": "verbatim", "confidence": "medium", "source": "textHeuristic", "reason": "structuredText", "autoApply": false }
+    },
+    {
+      "id": "unknown-url-is-verbatim-recommendation",
+      "context": { "contentKind": "unknown", "text": "https://example.com/中文A" },
+      "expected": { "policy": "verbatim", "confidence": "medium", "source": "textHeuristic", "reason": "structuredText", "autoApply": false }
+    },
+    {
+      "id": "unknown-email-is-verbatim-recommendation",
+      "context": { "contentKind": "unknown", "text": "user@example.com" },
+      "expected": { "policy": "verbatim", "confidence": "medium", "source": "textHeuristic", "reason": "structuredText", "autoApply": false }
+    },
+    {
+      "id": "unknown-windows-path-is-verbatim-recommendation",
+      "context": { "contentKind": "unknown", "text": "C:\\Users\\name\\文件A.txt" },
+      "expected": { "policy": "verbatim", "confidence": "medium", "source": "textHeuristic", "reason": "structuredText", "autoApply": false }
+    },
+    {
+      "id": "unknown-code-is-verbatim-recommendation",
+      "context": { "contentKind": "unknown", "text": "const value = {中A: 1};" },
+      "expected": { "policy": "verbatim", "confidence": "medium", "source": "textHeuristic", "reason": "structuredText", "autoApply": false }
+    },
+    {
+      "id": "unknown-mixed-prose-recommends-natural-language",
+      "context": { "contentKind": "unknown", "text": "发布iOS18版本" },
+      "expected": { "policy": "naturalLanguage", "confidence": "medium", "source": "textHeuristic", "reason": "mixedNaturalLanguage", "autoApply": false }
+    },
+    {
+      "id": "unknown-han-only-falls-back",
+      "context": { "contentKind": "unknown", "text": "纯中文" },
+      "expected": { "policy": "verbatim", "confidence": "low", "source": "fallback", "reason": "insufficientEvidence", "autoApply": false }
+    },
+    {
+      "id": "missing-context-falls-back",
+      "context": {},
+      "expected": { "policy": "verbatim", "confidence": "low", "source": "fallback", "reason": "insufficientEvidence", "autoApply": false }
+    }
+  ]
+}

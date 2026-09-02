@@ -1,0 +1,21 @@
+{
+  "name": "@natural-spacing/core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Reference TypeScript core for Natural Spacing rules and edit planning.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "unicode-segmenter": "^0.17.3"
+  }
+}

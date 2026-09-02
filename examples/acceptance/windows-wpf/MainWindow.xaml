@@ -1,0 +1,61 @@
+<Window x:Class="NaturalSpacing.Wpf.Acceptance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Natural Spacing WPF Acceptance"
+        Width="820"
+        Height="650"
+        MinWidth="620"
+        MinHeight="520"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="28">
+            <TextBlock FontSize="26" FontWeight="SemiBold"
+                       Text="Natural Spacing WPF Acceptance" />
+            <TextBlock Margin="0,10,0,18" TextWrapping="Wrap"
+                       Text="Use only synthetic text. Record Windows, hardware or VM, the exact IME/input source, adapter revision, and each attempted scenario. Active composition must remain untouched." />
+
+            <TextBlock Margin="0,0,0,6" FontSize="18" FontWeight="SemiBold"
+                       Text="Natural-language message" />
+            <TextBox x:Name="MessageEditor"
+                     AutomationProperties.Name="Natural language acceptance editor"
+                     AcceptsReturn="True"
+                     MinHeight="160"
+                     FontSize="24"
+                     SpellCheck.IsEnabled="False"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     TextChanged="Editor_TextChanged"
+                     SelectionChanged="Editor_SelectionChanged" />
+            <TextBlock x:Name="MessageStatus"
+                       AutomationProperties.Name="Message editor status"
+                       Margin="0,8,0,20"
+                       FontFamily="Consolas"
+                       FontSize="13"
+                       TextWrapping="Wrap" />
+
+            <TextBlock Margin="0,0,0,6" FontSize="18" FontWeight="SemiBold"
+                       Text="Verbatim structured field" />
+            <TextBox x:Name="VerbatimEditor"
+                     AutomationProperties.Name="Verbatim acceptance editor"
+                     MinHeight="52"
+                     FontSize="20"
+                     SpellCheck.IsEnabled="False"
+                     TextChanged="Editor_TextChanged"
+                     SelectionChanged="Editor_SelectionChanged" />
+            <TextBlock x:Name="VerbatimStatus"
+                       AutomationProperties.Name="Verbatim editor status"
+                       Margin="0,8,0,20"
+                       FontFamily="Consolas"
+                       FontSize="13"
+                       TextWrapping="Wrap" />
+
+            <Button Width="190"
+                    HorizontalAlignment="Left"
+                    Padding="12,8"
+                    AutomationProperties.Name="Reset both acceptance editors"
+                    Click="Reset_Click"
+                    Content="Reset synthetic text" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

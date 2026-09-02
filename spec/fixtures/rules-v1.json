@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "rulesVersion": "1.0.0-draft.1",
+  "unicodeVersion": "17.0.0",
+  "cases": [
+    {
+      "id": "empty",
+      "policy": "naturalLanguage",
+      "input": "",
+      "expected": "",
+      "tags": ["edge"]
+    },
+    {
+      "id": "han-latin",
+      "policy": "naturalLanguage",
+      "input": "中A",
+      "expected": "中 A",
+      "tags": ["hanLatin"]
+    },
+    {
+      "id": "latin-han",
+      "policy": "naturalLanguage",
+      "input": "A中",
+      "expected": "A 中",
+      "tags": ["hanLatin"]
+    },
+    {
+      "id": "han-ascii-digit",
+      "policy": "naturalLanguage",
+      "input": "中1",
+      "expected": "中 1",
+      "tags": ["hanAsciiDigit"]
+    },
+    {
+      "id": "ascii-digit-han",
+      "policy": "naturalLanguage",
+      "input": "1中",
+      "expected": "1 中",
+      "tags": ["hanAsciiDigit"]
+    },
+    {
+      "id": "mixed-sentence",
+      "policy": "naturalLanguage",
+      "input": "在GitHub发布2个项目",
+      "expected": "在 GitHub 发布 2 个项目",
+      "tags": ["hanLatin", "hanAsciiDigit", "multiple"]
+    },
+    {
+      "id": "latin-ascii-digit-unchanged",
+      "policy": "naturalLanguage",
+      "input": "React18",
+      "expected": "React18",
+      "tags": ["negative"]
+    },
+    {
+      "id": "han-han-unchanged",
+      "policy": "naturalLanguage",
+      "input": "中文",
+      "expected": "中文",
+      "tags": ["negative"]
+    },
+    {
+      "id": "latin-latin-unchanged",
+      "policy": "naturalLanguage",
+      "input": "GitHub",
+      "expected": "GitHub",
+      "tags": ["negative"]
+    },
+    {
+      "id": "existing-space",
+      "policy": "naturalLanguage",
+      "input": "中 A",
+      "expected": "中 A",
+      "tags": ["whitespace", "idempotent"]
+    },
+    {
+      "id": "existing-tab",
+      "policy": "naturalLanguage",
+      "input": "中\tA",
+      "expected": "中\tA",
+      "tags": ["whitespace"]
+    },
+    {
+      "id": "existing-newline",
+      "policy": "naturalLanguage",
+      "input": "中\nA",
+      "expected": "中\nA",
+      "tags": ["whitespace"]
+    },
+    {
+      "id": "existing-nbsp",
+      "policy": "naturalLanguage",
+      "input": "中 A",
+      "expected": "中 A",
+      "tags": ["whitespace", "nbsp"]
+    },
+    {
+      "id": "existing-multiple-spaces",
+      "policy": "naturalLanguage",
+      "input": "中  A",
+      "expected": "中  A",
+      "tags": ["whitespace", "preserve"]
+    },
+    {
+      "id": "punctuation-separates-boundary",
+      "policy": "naturalLanguage",
+      "input": "中,A",
+      "expected": "中,A",
+      "tags": ["punctuation", "negative"]
+    },
+    {
+      "id": "ideographic-punctuation-separates-boundary",
+      "policy": "naturalLanguage",
+      "input": "A。中",
+      "expected": "A。中",
+      "tags": ["punctuation", "negative"]
+    },
+    {
+      "id": "hyphen-separates-boundary",
+      "policy": "naturalLanguage",
+      "input": "中-A",
+      "expected": "中-A",
+      "tags": ["punctuation", "negative"]
+    },
+    {
+      "id": "emoji-separates-boundary",
+      "policy": "naturalLanguage",
+      "input": "中🙂A",
+      "expected": "中🙂A",
+      "tags": ["emoji", "grapheme", "negative"]
+    },
+    {
+      "id": "emoji-zwj-sequence-preserved",
+      "policy": "naturalLanguage",
+      "input": "中👨‍👩‍👧‍👦A",
+      "expected": "中👨‍👩‍👧‍👦A",
+      "tags": ["emoji", "grapheme", "zwj", "negative"]
+    },
+    {
+      "id": "fullwidth-digit-unchanged",
+      "policy": "naturalLanguage",
+      "input": "中１",
+      "expected": "中１",
+      "tags": ["number", "negative"]
+    },
+    {
+      "id": "arabic-indic-digit-unchanged",
+      "policy": "naturalLanguage",
+      "input": "中١",
+      "expected": "中١",
+      "tags": ["number", "negative"]
+    },
+    {
+      "id": "extended-latin-letter",
+      "policy": "naturalLanguage",
+      "input": "中é",
+      "expected": "中 é",
+      "tags": ["hanLatin", "unicodeLatin"]
+    },
+    {
+      "id": "decomposed-latin-grapheme",
+      "policy": "naturalLanguage",
+      "input": "中é",
+      "expected": "中 é",
+      "tags": ["hanLatin", "grapheme", "combiningMark"]
+    },
+    {
+      "id": "supplementary-han",
+      "policy": "naturalLanguage",
+      "input": "𠀀A",
+      "expected": "𠀀 A",
+      "tags": ["hanLatin", "surrogatePair"]
+    },
+    {
+      "id": "compatibility-han",
+      "policy": "naturalLanguage",
+      "input": "豈A",
+      "expected": "豈 A",
+      "tags": ["hanLatin", "compatibilityIdeograph"]
+    },
+    {
+      "id": "ideographic-number-zero",
+      "policy": "naturalLanguage",
+      "input": "〇A",
+      "expected": "〇 A",
+      "tags": ["hanLatin", "letterNumber"]
+    },
+    {
+      "id": "kelvin-sign-latin-letter",
+      "policy": "naturalLanguage",
+      "input": "中K",
+      "expected": "中 K",
+      "tags": ["hanLatin", "scriptExtensions", "unicodeLatin"]
+    },
+    {
+      "id": "hangzhou-numeral-han-letter-number",
+      "policy": "naturalLanguage",
+      "input": "〡A",
+      "expected": "〡 A",
+      "tags": ["hanLatin", "scriptExtensions", "letterNumber"]
+    },
+    {
+      "id": "ideographic-closing-mark-han-letter",
+      "policy": "naturalLanguage",
+      "input": "〆A",
+      "expected": "〆 A",
+      "tags": ["hanLatin", "scriptExtensions", "otherLetter"]
+    },
+    {
+      "id": "latin-script-extension-symbol-excluded",
+      "policy": "naturalLanguage",
+      "input": "中˗",
+      "expected": "中˗",
+      "tags": ["scriptExtensions", "symbol", "negative"]
+    },
+    {
+      "id": "mark-only-grapheme-excluded",
+      "policy": "naturalLanguage",
+      "input": "\u0363中",
+      "expected": "\u0363中",
+      "tags": ["grapheme", "combiningMark", "negative"]
+    },
+    {
+      "id": "kangxi-radical-excluded",
+      "policy": "naturalLanguage",
+      "input": "⼀A",
+      "expected": "⼀A",
+      "tags": ["hanProfile", "symbol", "negative"]
+    },
+    {
+      "id": "greek-excluded",
+      "policy": "naturalLanguage",
+      "input": "中Ω",
+      "expected": "中Ω",
+      "tags": ["script", "negative"]
+    },
+    {
+      "id": "cyrillic-excluded",
+      "policy": "naturalLanguage",
+      "input": "中Я",
+      "expected": "中Я",
+      "tags": ["script", "negative"]
+    },
+    {
+      "id": "roman-numeral-excluded",
+      "policy": "naturalLanguage",
+      "input": "中Ⅻ",
+      "expected": "中Ⅻ",
+      "tags": ["number", "negative"]
+    },
+    {
+      "id": "zero-width-space-separates-boundary",
+      "policy": "naturalLanguage",
+      "input": "中​A",
+      "expected": "中​A",
+      "tags": ["format", "negative"]
+    },
+    {
+      "id": "verbatim-preserves-eligible-boundaries",
+      "policy": "verbatim",
+      "input": "中A1文",
+      "expected": "中A1文",
+      "tags": ["policy", "verbatim"]
+    },
+    {
+      "id": "already-normalized-multiple-boundaries",
+      "policy": "naturalLanguage",
+      "input": "在 GitHub 发布 2 个项目",
+      "expected": "在 GitHub 发布 2 个项目",
+      "tags": ["idempotent", "multiple"]
+    }
+  ]
+}

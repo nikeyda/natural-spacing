@@ -1,0 +1,10 @@
+name: natural_spacing_consumer
+description: Independent path-dependency smoke consumer for Natural Spacing.
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  natural_spacing:
+    path: ../../../packages/dart
