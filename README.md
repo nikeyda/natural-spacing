@@ -1,5 +1,7 @@
 # Natural Spacing
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 > Source alpha. Package registry publication is intentionally disabled.
 
 Natural Spacing is a specification-first toolkit for adding predictable spaces at Han–Latin and Han–ASCII-digit boundaries without breaking IME composition, selections, deletion intent, or native undo behavior. It is intended for interactive input and non-interactive text such as ASR, dictation, imported content, and generated prose.
