@@ -1,6 +1,6 @@
 # Natural Spacing
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+[English](README.md) | [简体中文](README.zh-CN.md) | [Español](README.es.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 > 源码 Alpha 阶段。项目目前有意关闭所有包注册表发布。
 
